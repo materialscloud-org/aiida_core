@@ -15,7 +15,7 @@ import os
 
 from flask_cors import CORS
 
-from aiida.backends.utils import load_dbenv
+from aiida.backends.utils import load_dbenv, is_dbenv_loaded
 
 
 def run_api(App, Api, *args, **kwargs):
@@ -146,8 +146,8 @@ def run_api(App, Api, *args, **kwargs):
 
     # Set the AiiDA environment. If already loaded, load_dbenv will raise an
     # exception
-    # if not is_dbenv_loaded():
-    load_dbenv()
+    if not is_dbenv_loaded():
+    	load_dbenv()
 
     # Instantiate an app
     app_kwargs = dict(catch_internal_server=catch_internal_server)
